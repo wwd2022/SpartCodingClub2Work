@@ -96,7 +96,7 @@ _____|_____|_____
                     {
                         char choiceChar = oneTurn ? 'X' : 'O';
                         arr[inputNum - 1] = choiceChar; // 'X' or 'O'
-                        int[,] clearArr = new int[8,3] {
+                        int[,] clearArr = {
                             { 0, 1, 2 }   // 1번째 가로줄
                             , { 3, 4, 5 } // 2번째 가로줄
                             , { 6, 7, 8 } // 3번째 가로줄
@@ -108,10 +108,10 @@ _____|_____|_____
                         };
                         
                         // 정답줄(가로,세로,대각선) 순회
-                        for (int i = 0; i < 8; i++)
+                        for (int i = 0; i < clearArr.GetLength(0); i++)
                         {
                             // 지금 그려진 위치(inputNum)가 있는 정답줄에 있는지 체크
-                            for (int j = 0; j < 3; j++)
+                            for (int j = 0; j < clearArr.GetLength(1); j++)
                             {
                                 // 있다면?
                                 if (clearArr[i, j] == inputNum - 1)
