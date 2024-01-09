@@ -53,6 +53,7 @@ namespace SpartCodingClub2Work
             char[] arr = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
             bool oneTurn = true;
             bool isGameEnd = false;
+            bool isGameDraw = false;
             string inputStr = "";
             int inputNum;
             readonly int[,] clearArr = {
@@ -84,8 +85,9 @@ _____|_____|_____
   {arr[6]}  |  {arr[7]}  |  {arr[8]}  
      |     |     
 ");
-                    // 게임종료 체크 
+                    // 틱택토 그림을 출력하고 게임종료 체크 
                     if (GameEndCheck()) return;
+                    
                     // 사용자입력 받기
                     if (inputStr == "")
                     {
@@ -104,6 +106,8 @@ _____|_____|_____
                             arr[inputNum - 1] = choiceChar; // 'X' or 'O'
                             // 방금 그려진 O or X 플레이어가 승리했는가?
                             isGameEnd = PlayerWinCheck(choiceChar);
+                            // 무승부 체크
+                            if (Array.FindIndex(arr, e => e != 'X' && e != 'O') == -1) isGameDraw = true;
                             // 그리기 마무리
                             oneTurn = !oneTurn;
                             inputStr = "";
@@ -126,7 +130,13 @@ _____|_____|_____
 
             bool GameEndCheck()
             {
-                if (isGameEnd)
+                if (isGameDraw)
+                {
+                    Console.WriteLine("무승부입니다.");
+                    Console.ReadLine();
+                    return true;
+                }
+                else if (isGameEnd)
                 {
                     Console.WriteLine("///////////////////////////////////////////////////////");
                     Console.WriteLine($"     {(!oneTurn ? 1 : 2)}번 플레이어({(!oneTurn ? "X" : "O")})가 승리했습니다.");
